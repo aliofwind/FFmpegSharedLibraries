@@ -14,10 +14,24 @@ Each workflow builds FFmpeg shared libraries only.
 - `libdavs2` (`davs2-10bit`) is built from source and linked statically when `license_flavor=gpl`.
 - Runtime artifacts do not include separate `libuavs3d`/`libdavs2` dynamic libraries.
 
-For `libdavs2`, the build applies local patches that:
-- enable 10-bit build support in `davs2-10bit`,
-- propagate packet file position metadata through decoder output,
-- map decoder output packet position to FFmpeg frame `pkt_pos`.
+The build applies a small set of local patches across both `davs2-10bit` and FFmpeg:
+
+- `patches/davs2-10bit/0001-enable-10bit-build-and-propagate-frame-packet-position.patch`
+  - enables 10-bit `davs2-10bit` builds,
+  - propagates decoder-side packet file position metadata through `libdavs2` output.
+- `patches/ffmpeg/0001-libdavs2-export-pkt_pos-from-decoder-output.patch`
+  - maps `libdavs2` packet position metadata to FFmpeg frame `pkt_pos`.
+- `patches/ffmpeg/0002-libcavs-fix-macos-build-compat.patch`
+  - fixes `libcavs` build compatibility on macOS.
+- `patches/ffmpeg/0003-libcavs-export-pkt_pos-and-simplify-profile-name.patch`
+  - exports `pkt_pos` for `libcavs` decoded frames,
+  - simplifies the reported CAVS profile name.
+- `patches/ffmpeg/0004-libcavs-fix-reordered-frame-props.patch`
+  - fixes reordered-frame property propagation in `libcavs`.
+- `patches/ffmpeg/0005-cavs-parser-mark-key-packets.patch`
+  - improves CAVS parser key-packet marking.
+- `patches/ffmpeg/0006-cavsvideo-fix-backward-seek-and-key-pos.patch`
+  - adjusts raw CAVS demuxing / indexing behavior for backward seek and keyframe position handling.
 
 ## Workflow Inputs
 
