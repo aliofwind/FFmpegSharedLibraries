@@ -333,16 +333,9 @@ CONFIGURE_FLAGS=(
   --pkg-config="$PKG_CONFIG_BIN"
   --enable-shared
   --disable-static
-  --disable-programs
   --disable-doc
   --disable-debug
   --disable-autodetect
-  --disable-ffplay
-  --disable-network
-  --disable-indevs
-  --disable-outdevs
-  --disable-devices
-  --disable-encoders
   --enable-encoder=png,mjpeg,bmp
   --extra-ldflags=-static-libgcc\ -static-libstdc++
   "--extra-libs=-Wl,-Bstatic -lstdc++ -lwinpthread -Wl,-Bdynamic"
